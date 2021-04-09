@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 
 use App\Models\Character;
+use App\Models\Title;
 
 class CharacterRepository
 {
@@ -15,21 +16,34 @@ class CharacterRepository
     }
 
     public function all() {
-        $all = $this->model->all();
-        echo(print_r($all, true));
+        return $this->model->all();
     }
 
     public function create(array $attributes) {
-        return Character::create($attributes);
+        return $this->model->create($attributes);
     }
 
     public function find(int $id) {
-        return Character::find($id);
+        return $this->model->find($id);
+    }
+
+    public function delete(int $id) {
+        return $this->model->find($id)->delete();
     }
 
     public function update(array $attributes, int $id) {
         $character = Character::find($id);
         $character->update($attributes);
+        return $this->find($id);
+    }
+
+    public function setTitles(array $titles, int $id) {
+        $character = Character::find($id);
+        foreach ($titles as $title) {
+            $character->titles()->save(new Title([
+                'title' => $title
+            ]));
+        }
         return $this->find($id);
     }
 }

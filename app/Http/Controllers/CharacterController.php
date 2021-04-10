@@ -73,13 +73,17 @@ class CharacterController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
+     * @return CharacterResource
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->repository->update($request->only([
+            'id', 'url', 'name', 'gender', 'culture', 'born', 'died', 'father', 'mother', 'spouse'
+        ]),  $id);
+        $this->repository->setTitles($request->input('titles', []), $id);
+        return new CharacterResource($this->repository->find($id));
     }
 
     /**

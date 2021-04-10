@@ -19,5 +19,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::resource('characters', \App\Http\Controllers\CharacterController::class)->only([
-    'index', 'show'
+    'index', 'show', 'update'
 ]);

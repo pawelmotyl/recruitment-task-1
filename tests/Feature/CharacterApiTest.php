@@ -3,10 +3,21 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Artisan;
 use Tests\TestCase;
 
 class CharacterApiTest extends TestCase
 {
+
+    use RefreshDatabase;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+        Artisan::call('migrate:refresh');
+        Artisan::call('characters:download');
+    }
+
     /**
      * Test listing of characters.
      *
@@ -47,7 +58,7 @@ class CharacterApiTest extends TestCase
      */
     public function testShowCharacterTest()
     {
-        $response = $this->get('/api/characters/106');
+        $response = $this->get('/api/characters/1');
 
         $response->assertStatus(200);
 

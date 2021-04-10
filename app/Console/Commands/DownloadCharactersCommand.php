@@ -27,7 +27,7 @@ class DownloadCharactersCommand extends Command
     {
         parent::__construct();
 
-        $this->character_repository = new CharacterRepository(new Character());
+        $this->character_repository = new CharacterRepository(new Character);
     }
 
     /**

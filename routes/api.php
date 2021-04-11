@@ -18,6 +18,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::resource('characters', \App\Http\Controllers\CharacterController::class)->only([
+Route::middleware('auth:api')->resource('characters', \App\Http\Controllers\CharacterController::class)->only([
     'index', 'show', 'update'
 ]);
+
+Route::post('/login', [\App\Http\Controllers\AuthController::class, 'login']);

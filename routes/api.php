@@ -23,3 +23,4 @@ Route::middleware('auth:api')->resource('characters', \App\Http\Controllers\Char
 ]);
 
 Route::post('/login', [\App\Http\Controllers\AuthController::class, 'login']);
+Route::middleware('auth:api')->get('/logout', [\App\Http\Controllers\AuthController::class, 'logout']);
